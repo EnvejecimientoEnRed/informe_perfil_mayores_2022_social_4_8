@@ -23,13 +23,12 @@ export function initChart(iframe) {
     //Lectura de datos
     d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_social_4_8/main/data/contribuciones_abuelos_sociedad_cis_2018.csv', function(error,data) {
         if (error) throw error;
-        console.log(data);
-
+        
         data.sort(function(x, y){
             return d3.descending(+x.valor_contribucion, +y.valor_contribucion);
         });
 
-        let margin = {top: 20, right: 30, bottom: 40, left: 120},
+        let margin = {top: 20, right: 20, bottom: 20, left: 140},
             width = document.getElementById('chart').clientWidth - margin.left - margin.right,
             height = document.getElementById('chart').clientHeight - margin.top - margin.bottom;
 
@@ -50,11 +49,12 @@ export function initChart(iframe) {
 
         let y = d3.scaleBand()
                 .range([ 0, height ])
-                .domain(data.map(function(d) { return d.tipo_contribucion; }))
-                .padding(.1);
+                .domain(data.map(function(d) { return d.tipo_contribucion; }));
 
         svg.append("g")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y))
+            .selectAll('.tick text')
+            .call(wrap, 130);
 
 
         function init() {
@@ -64,9 +64,9 @@ export function initChart(iframe) {
                 .append("rect")
                 .attr('class','bars')
                 .attr("x", x(0) )
-                .attr("y", function(d) { return y(d.tipo_contribucion); })
+                .attr("y", function(d) { return y(d.tipo_contribucion) + y.bandwidth() / 4; })
                 .attr("width", function(d) { return x(0); })
-                .attr("height", y.bandwidth() )
+                .attr("height", y.bandwidth() / 2 )
                 .attr("fill", function(d) {
                     if (d.CODAUTO != 20) {
                         return '#F8B05C';
@@ -113,7 +113,9 @@ export function initChart(iframe) {
 
         //Captura de pantalla de la visualización
         setChartCanvas();
-        setCustomCanvas();
+        setTimeout(() => {
+            setCustomCanvas();
+        }, 5000);        
 
         let pngDownload = document.getElementById('pngImage');
 
@@ -126,3 +128,28 @@ export function initChart(iframe) {
         setChartHeight(iframe);
     });    
 }
+
+function wrap(text, width) {
+    text.each(function() {
+        var text = d3.select(this),
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            y = text.attr("y"),
+            dy = words.length <= 3 ? 0.35 : words[0] == 'unida' ? 0.35 : -0.05,
+            tspan = text.text(null).append("tspan").attr("x", -10).attr("y", y).attr("dy", + dy + "em");
+
+        console.log(words);
+
+        while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                tspan = text.append("tspan").attr("x", -10).attr("y", y).attr("dy", 0.8 + "em").text(word);
+            }
+        }
+    });
+};
