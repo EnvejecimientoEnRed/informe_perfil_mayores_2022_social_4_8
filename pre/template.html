@@ -21,6 +21,8 @@
                     <h2 class="subtitle">Gráfico 39/2022. Datos en porcentajes (%)</h2>
                 </div>
                 <div class="chart__logics">
+                    <div class="chart__legend">
+                    </div>
                     <div class="chart__animate" id="replay">
                         <button class="btn btn__animate">
                             <i class="fa fa--share fa-repeat" aria-hidden="true"></i>
@@ -28,7 +30,10 @@
                         </button>
                     </div>                  
                 </div>
-                <div class="chart__viz" id="chart"></div>
+                <div class="chart__viz">                 
+                    <div class="chart--viz" id="chart"></div>
+                    <p class="text__xaxis" id="texto-reactivo">Porcentaje</p>
+                </div>
                 <!-- Pie de gráfico -->
                 <div class="chart__footer">
                     <div class="chart__source">
@@ -87,10 +92,7 @@
                 <li class="tab tab--rrss" data-target="b-rrss"><i class="fa fa--share fa-share-alt"></i></li>
             </ul>
         </nav>
-        <div class="chart__tooltip" id="tooltip">
-            <p class="chart__tooltip--title"></p>
-            <p class="chart__tooltip--text"></p>
-        </div>  
+        <div class="chart__tooltip" id="tooltip"></div>  
     </div>
     <!-- Uso de PYMJS para alturas dinámicas -->
     <script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
