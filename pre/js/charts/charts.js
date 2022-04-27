@@ -132,6 +132,10 @@ export function initChart(iframe) {
         //Animación del gráfico
         document.getElementById('replay').addEventListener('click', function() {
             animateChart();
+
+            setTimeout(() => {
+                setChartCanvas(); 
+            }, 4000);
         });
 
         /////
@@ -147,7 +151,9 @@ export function initChart(iframe) {
         setRRSSLinks('contribuciones_abuelos');
 
         //Captura de pantalla de la visualización
-        setChartCanvas();     
+        setTimeout(() => {
+            setChartCanvas(); 
+        }, 4000);    
 
         let pngDownload = document.getElementById('pngImage');
 
@@ -156,7 +162,7 @@ export function initChart(iframe) {
         });
 
         //Altura del frame
-        setChartHeight(iframe);
+        setChartHeight();
     });    
 }
 
