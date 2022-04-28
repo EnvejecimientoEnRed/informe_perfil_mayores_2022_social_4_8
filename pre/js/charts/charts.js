@@ -20,7 +20,7 @@ export function initChart(iframe) {
             return d3.descending(+x.valor_contribucion, +y.valor_contribucion);
         });
 
-        let margin = {top: 20, right: 20, bottom: 20, left: 140},
+        let margin = {top: 12.5, right: 20, bottom: 25, left: 140},
             width = document.getElementById('chart').clientWidth - margin.left - margin.right,
             height = document.getElementById('chart').clientHeight - margin.top - margin.bottom;
 
@@ -86,8 +86,6 @@ export function initChart(iframe) {
                         this.style.opacity = '0.4';
                     });
                     this.style.opacity = '1';
-
-                    console.log(d);
 
                     //Texto
                     let html = '<p class="chart__tooltip--title">' + d.tipo_contribucion + '</p>' + 
