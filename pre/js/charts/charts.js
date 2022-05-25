@@ -13,7 +13,7 @@ let tooltip = d3.select('#tooltip');
 
 export function initChart(iframe) {
     //Lectura de datos
-    d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_social_4_8/main/data/contribuciones_abuelos_sociedad_cis_2018.csv', function(error,data) {
+    d3.csv('https://raw.githubusercontent.com/EnvejecimientoEnRed/informe_perfil_mayores_2022_social_4_8/main/data/contribuciones_abuelos_sociedad_cis_2018.csv', function(error,data) {
         if (error) throw error;
         
         data.sort(function(x, y){
